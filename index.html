@@ -4,239 +4,112 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Undangan Pernikahan Hera & Ahmad</title>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-    
     <style>
-        :root {
-            --primary-blue: #1a2a6c;
-            --accent-blue: #5d8aa8;
-            --soft-white: #fdfdfd;
-            --gold: #b8860b;
-        }
-
-        body {
+        body, html {
             margin: 0;
-            font-family: 'Montserrat', sans-serif;
-            background-color: var(--soft-white);
-            color: var(--primary-blue);
-            scroll-behavior: smooth;
-            overflow-x: hidden;
-        }
-
-        /* Flower Petals Canvas */
-        #petal-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 99;
-        }
-
-        .floral-bg {
-            position: fixed;
-            top: 0; width: 100%; height: 100%;
-            background: url('https://www.transparenttextures.com/patterns/natural-paper.png');
-            z-index: -1;
-        }
-
-        section {
-            min-height: 100vh;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 60px 20px;
-            box-sizing: border-box;
+        }
+
+        /* FRAME UTAMA UNTUK VIDEO ANDA */
+        .video-container {
+            width: 100%;
+            max-width: 500px; /* Ukuran pas untuk layar HP */
+            background: #000;
+            line-height: 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             position: relative;
         }
 
-        .hero h1 { font-family: 'Great Vibes', cursive; font-size: clamp(3.5rem, 12vw, 6rem); margin: 10px 0; color: var(--primary-blue); }
-        .date-box { border-top: 2px solid var(--primary-blue); border-bottom: 2px solid var(--primary-blue); padding: 10px 30px; font-weight: 700; letter-spacing: 3px; }
-
-        /* Countdown */
-        #countdown { display: flex; gap: 12px; margin-top: 30px; }
-        .count-item { background: var(--primary-blue); color: white; padding: 12px; border-radius: 10px; min-width: 65px; box-shadow: 0 4px 15px rgba(26, 42, 108, 0.2); }
-        .count-item span { display: block; font-size: 1.4rem; font-weight: bold; }
-        .count-item label { font-size: 0.65rem; text-transform: uppercase; }
-
-        /* Digital Envelope */
-        .envelope-container {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 30px;
-            border-radius: 25px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            max-width: 400px;
+        video {
             width: 100%;
-            margin-top: 20px;
-            backdrop-filter: blur(5px);
+            height: auto;
         }
 
-        .bank-card {
-            border: 1px solid #eee;
+        /* TOMBOL NAVIGASI DI BAWAH VIDEO */
+        .action-buttons {
+            width: 100%;
+            max-width: 500px;
             padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 15px;
-            text-align: left;
-            background: #fff;
+            box-sizing: border-box;
+            background: white;
+            text-align: center;
         }
 
-        .bank-name { font-weight: bold; font-size: 1.1rem; color: #6e2c91; }
-        .acc-number { font-size: 1.3rem; margin: 10px 0; color: #333; font-weight: bold; }
-        
         .btn {
-            background: var(--primary-blue);
+            display: block;
+            background: #1a2a6c;
             color: white;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.3s;
+            padding: 15px;
+            margin: 10px 0;
             text-decoration: none;
-            display: inline-block;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
         }
 
-        .btn-copy { background: #f0f0f0; color: #333; padding: 8px 15px; border-radius: 10px; font-size: 0.75rem; border: 1px solid #ddd; }
-        .btn:hover { background: var(--accent-blue); transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .bank-info {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+            text-align: left;
+        }
 
-        /* Guestbook */
-        .guestbook-container { background: white; padding: 30px; border-radius: 20px; width: 100%; max-width: 500px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-        input, textarea { width: 100%; padding: 14px; margin: 10px 0; border: 1px solid #ddd; border-radius: 10px; font-family: inherit; }
-        #display-wishes { margin-top: 25px; text-align: left; max-height: 250px; overflow-y: auto; padding-right: 5px; }
-        .wish-item { background: #f1f4f9; padding: 15px; border-left: 4px solid var(--primary-blue); margin-bottom: 10px; border-radius: 8px; }
+        .copy-hint {
+            font-size: 11px;
+            color: #888;
+            margin-top: 5px;
+        }
     </style>
 </head>
 <body>
 
-    <canvas id="petal-canvas"></canvas>
-    
-    <div class="floral-bg"></div>
+    <div class="video-container">
+        <video controls autoplay loop muted>
+            <source src="The Wedding of Hera & Ahmad-3.mp4" type="video/mp4">
+            Maaf, browser Anda tidak mendukung tag video.
+        </video>
+    </div>
 
-    <section>
-        <p style="letter-spacing: 5px; font-weight: 300;">THE WEDDING OF</p>
-        <h1>Hera & Ahmad</h1>
-        <div class="date-box">01 . 04 . 2026</div>
+    <div class="action-buttons">
+        <p><strong>01 April 2026</strong><br>Subang, Jawa Barat</p>
         
-        <div id="countdown">
-            <div class="count-item"><span id="days">00</span><label>Hari</label></div>
-            <div class="count-item"><span id="hours">00</span><label>Jam</label></div>
-            <div class="count-item"><span id="minutes">00</span><label>Menit</label></div>
-            <div class="count-item"><span id="seconds">00</span><label>Detik</label></div>
-        </div>
-    </section>
-
-    <section style="background: rgba(240, 244, 248, 0.5);">
-        <h2 style="font-family: 'Playfair Display';">Kado Digital</h2>
-        <p style="max-width: 500px; margin-bottom: 30px; font-weight: 300;">Doa restu Anda merupakan karunia yang sangat berarti bagi kami. Namun jika memberi adalah ungkapan kasih Anda, silakan melalui saluran berikut:</p>
+        <a href="https://maps.google.com" target="_blank" class="btn">LIHAT LOKASI ACARA</a>
         
-        <div class="envelope-container">
-            <div class="bank-card">
-                <div class="bank-name">BANK MUAMALAT</div>
-                <div class="acc-number" id="rekMuamalat">1170012747</div>
-                <div class="acc-name">a.n Herawati</div>
-                <button class="btn btn-copy" onclick="copyText('rekMuamalat')">Salin Rekening</button>
-            </div>
-
-            <div class="bank-card">
-                <div class="bank-name" style="color: #008fad;">DANA</div>
-                <div class="acc-number" id="rekDana">08131545691</div>
-                <div class="acc-name">a.n Ahmad Hidayat</div>
-                <button class="btn btn-copy" onclick="copyText('rekDana')">Salin Nomor Dana</button>
-            </div>
+        <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+        
+        <h3>Kado Digital</h3>
+        
+        <div class="bank-info">
+            <strong>Bank Muamalat</strong><br>
+            <span id="rek1">1170012747</span><br>
+            a.n Herawati
+            <button onclick="copy('rek1')" style="float:right; font-size:11px;">Salin</button>
         </div>
-    </section>
 
-    <section>
-        <h2 style="font-family: 'Playfair Display';">Ucapan & Doa</h2>
-        <div class="guestbook-container">
-            <input type="text" id="guestName" placeholder="Nama Anda">
-            <textarea id="guestMessage" rows="3" placeholder="Tulis doa restu untuk kedua mempelai..."></textarea>
-            <button class="btn" onclick="sendWish()" style="width: 100%;">Kirim Ucapan</button>
-
-            <div id="display-wishes">
-                </div>
+        <div class="bank-info">
+            <strong>DANA</strong><br>
+            <span id="rek2">08131545691</span><br>
+            a.n Ahmad Hidayat
+            <button onclick="copy('rek2')" style="float:right; font-size:11px;">Salin</button>
         </div>
-    </section>
+    </div>
 
     <script>
-        // 1. ANIMASI KELOPAK BUNGA (PETALS)
-        const canvas = document.getElementById('petal-canvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        const petals = [];
-        class Petal {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height - canvas.height;
-                this.size = Math.random() * 7 + 5;
-                this.speed = Math.random() * 1.5 + 0.5;
-                this.angle = Math.random() * 360;
-                this.spin = Math.random() * 2 - 1;
-            }
-            draw() {
-                ctx.save();
-                ctx.translate(this.x, this.y);
-                ctx.rotate(this.angle * Math.PI / 180);
-                ctx.fillStyle = "rgba(174, 214, 241, 0.6)"; // Warna biru soft sesuai tema
-                ctx.beginPath();
-                ctx.ellipse(0, 0, this.size, this.size/2, 0, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.restore();
-            }
-            update() {
-                this.y += this.speed;
-                this.x += Math.sin(this.angle) * 0.5;
-                this.angle += this.spin;
-                if (this.y > canvas.height) {
-                    this.y = -20;
-                    this.x = Math.random() * canvas.width;
-                }
-            }
-        }
-
-        for (let i = 0; i < 30; i++) petals.push(new Petal());
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            petals.forEach(p => { p.update(); p.draw(); });
-            requestAnimationFrame(animate);
-        }
-        animate();
-
-        // 2. COUNTDOWN
-        const weddingDate = new Date("April 1, 2026 09:00:00").getTime();
-        setInterval(function() {
-            const now = new Date().getTime();
-            const distance = weddingDate - now;
-            document.getElementById("days").innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
-            document.getElementById("hours").innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            document.getElementById("minutes").innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            document.getElementById("seconds").innerText = Math.floor((distance % (1000 * 60)) / 1000);
-        }, 1000);
-
-        // 3. COPY CLIPBOARD
-        function copyText(id) {
+        function copy(id) {
             const text = document.getElementById(id).innerText;
-            navigator.clipboard.writeText(text).then(() => { alert("Berhasil disalin: " + text); });
-        }
-
-        // 4. GUESTBOOK
-        function sendWish() {
-            const name = document.getElementById("guestName").value;
-            const msg = document.getElementById("guestMessage").value;
-            if(!name || !msg) return alert("Mohon isi nama dan doa Anda.");
-            const item = document.createElement("div");
-            item.className = "wish-item";
-            item.innerHTML = `<strong>${name}:</strong><p>${msg}</p>`;
-            document.getElementById("display-wishes").prepend(item);
-            document.getElementById("guestName").value = "";
-            document.getElementById("guestMessage").value = "";
+            navigator.clipboard.writeText(text);
+            alert("Nomor berhasil disalin!");
         }
     </script>
+
 </body>
 </html>
